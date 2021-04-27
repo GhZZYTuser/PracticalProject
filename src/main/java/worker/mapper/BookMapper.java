@@ -12,6 +12,8 @@ public interface BookMapper {
     int insert(Book record);
 
     Book selectByPrimaryKey(Integer id);
+    
+    Book selectByName(String name);
 
     int updateByPrimaryKey(Book record);
 
