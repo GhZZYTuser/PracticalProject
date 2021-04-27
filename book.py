@@ -15,3 +15,19 @@ response.encoding = 'utf-8'
 data = response.text
 s = etree.HTML(data)
 datas = s.xpath('//div[@id="J_goodsList"]/ul/li')
+
+with open('JD_book.csv','a',newline='',encoding='utf-8') as f:
+    writer = csv.DictWriter(f,fieldnames=['书名','价格','出版社'])
+    writer.writeheader()
+    Re=dict()
+    for data in datas:
+        name = data.xpath('div/div[@class="p-name"]/a/em/text()')
+        price = data.xpath('div/div[@class="p-price"]/strong/i/text()')
+        shop = data.xpath('div/div[@class="p-shopnum"]/a/@title')
+        write.writerow([name,price,shop])
+    for i in range(len(name)):
+        Re['书名']=name[i].strip()
+        Re['价格']=price[i].strip()
+        Re['出版社']=shop[i].strip()
+        writer.writerow(Re)
+f.close()
